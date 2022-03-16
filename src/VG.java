@@ -5,6 +5,6 @@ public class VG extends PV {
 
     //Constructors
     public VG (PhysicalDrive input, ArrayList<PV> pVs, ArrayList<LV> lVs) {
-        
+
     }
 }
