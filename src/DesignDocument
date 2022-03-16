@@ -1,0 +1,26 @@
+PhysicalDrive
+//Variables
+String name
+int size
+
+//Constructor
+private PhysicalDrive (String name, int size){}
+
+
+//Methods
+
+
+PV extends PhysicalDrive
+//Variables
+String UUID - generated
+
+//Constructor
+private PhysicalDrive (String name, int size){}
+
+//Methods
+
+
+VG extends PV
+
+
+LV extends PV
