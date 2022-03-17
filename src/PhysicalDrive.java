@@ -1,6 +1,6 @@
 import java.util.UUID;
 
-public class PhysicalDrive {
+public class PhysicalDrive extends Info {
     //Variables
     private String name;
     private int size;
