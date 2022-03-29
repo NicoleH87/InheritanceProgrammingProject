@@ -1,26 +1,81 @@
-PhysicalDrive
+Info.java
 //Variables
-String name
-int size
+private String name;
+private String UUIDd;
+private int size;
 
-//Constructor
-private PhysicalDrive (String name, int size){}
+//Constructors
+public Info (String name, int size){}
+//The constructor will accept the name and size of the object. It will generate it's unique UUID upon creating a new object.
 
+public Info (String name){}
+//The constructor will accept the name of the object. It will generate it's unique UUID upon creating a new object.
 
 //Methods
+public String getName() //returns the name of the object
+public String getUUIDd() //returns the UUID of the object
+public int getSize() //returns the size of the object
 
 
-PV extends PhysicalDrive
+
+PhysicalDrive.java //This class will extend from Info.java class
 //Variables
-String UUID - generated
+private String name;
+private int size;
+private static ArrayList<String> pD;
 
-//Constructor
-private PhysicalDrive (String name, int size){}
+//Constructors
+public PhysicalDrive (String name, int size)
+//The input name and size will be referenced to the superclass that is responsible for storing this data.
 
 //Methods
+public void checkPhysicalDrive() {}
+//This method will check if there is already a variable created with the same name. If not, a new physical drive will be created.
 
 
-VG extends PV
+PhysicalVolume.java //This class will extend from Info.java class
+//Variables
+private PhysicalDrive pd;
+
+//Constructors
+public PhysicalVolume (String name)
+
+//Methods
+public void createPD()
+//Ask for info that will create physical volume by asking and setting the name and size.
 
 
-LV extends PV
+LogicalVolume.java //This class will extend from Info.java class
+//Variables
+private String name;
+
+//Constructors
+public LogicalVolume (int size, String name)
+
+
+VolumeGroup.java //This class will extend from Info.java class
+//Variables
+private String name;
+private String UUIDk;
+private ArrayList<PhysicalVolume> pvList;
+private ArrayList<LogicalVolume> lvList;
+
+//Constructors
+public VolumeGroup (String name, ArrayList<PhysicalVolume> pv, ArrayList<LogicalVolume> lv){}
+//The string name will be referenced to the superclass, where the information is stored.
+
+//Methods
+public void createLV(String name, int size)
+//Create logical volume object and add to lvList.
+
+public boolean canCreateLV(int newSize)
+//Check if a logical volume object can be created.
+
+public void createPV(String name)
+//Create a physicalVolume object and add to pvList
+
+public int getVGSize()
+//Return the size of VG or the total sizes that lvList takes up.
+
+public int freeSpace()
+//Returns the number of free space in volume group.

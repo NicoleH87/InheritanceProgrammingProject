@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class VolumeGroup extends Info {
     //Variables
@@ -8,9 +9,49 @@ public class VolumeGroup extends Info {
     private ArrayList<LogicalVolume> lvList;
 
     //Constructors
-    public VolumeGroup (String name, String UUID, ArrayList<PhysicalVolume> pv, ArrayList<LogicalVolume> lv) {
-        super(name, UUID);
+    public VolumeGroup (String name, ArrayList<PhysicalVolume> pv, ArrayList<LogicalVolume> lv) {
+        super(name);
         pvList = pv;
         lvList = lv;
+    }
+
+    public void createLV(String name, int size)
+    {
+        if (canCreateLV(size))
+        {
+            LogicalVolume logicVol = new LogicalVolume(size, name);
+            lvList.add(logicVol);
+        }
+    }
+
+    public boolean canCreateLV(int newSize)
+    {
+        int totalSpace = getVGSize();
+        if (totalSpace + newSize < this.getSize())
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public void createPV(String name)
+    {
+        PhysicalVolume physVol = new PhysicalVolume (name);
+        pvList.add(physVol);
+    }
+
+    public int getVGSize()
+    {
+        int totalSize = 0;
+        for (LogicalVolume logicVol : lvList)
+        {
+            totalSize += logicVol.getSize();
+        }
+        return totalSize;
+    }
+
+    public int freeSpace()
+    {
+        return this.getSize() - getVGSize();
     }
 }

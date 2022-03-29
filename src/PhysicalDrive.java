@@ -11,7 +11,6 @@ public class PhysicalDrive extends Info {
     public PhysicalDrive (String name, int size)
     {
         super(name, size);
-
     }
 
     public void checkPhysicalDrive() {
@@ -23,13 +22,6 @@ public class PhysicalDrive extends Info {
             }
         }
         pD.add(name);
-    }
-
-    public void listPD() {
-        for (String n: pD)
-        {
-
-        }
     }
 
 }

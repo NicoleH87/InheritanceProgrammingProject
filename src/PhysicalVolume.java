@@ -1,10 +1,25 @@
-public class PhysicalVolume extends Info {
-    private String UUIDd;
-    private String name;
+import java.util.Scanner;
 
-    public PhysicalVolume (PhysicalDrive pv, String name, String UUID)
+public class PhysicalVolume extends Info {
+    private PhysicalDrive pd;
+
+    public PhysicalVolume (String name)
     {
-        super(name, UUID);
+        super(name);
+        if (pd == null)
+        {
+            createPD();
+        }
+    }
+
+    public void createPD()
+    {
+        System.out.println("Enter the name of your physical drive: ");
+        Scanner s = new Scanner (System.in);
+        String n = s.nextLine();
+        System.out.println("Enter size: ");
+        int size = s.nextInt();
+        pd = new PhysicalDrive(n, size);
     }
 
 
