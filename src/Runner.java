@@ -5,8 +5,7 @@ public class Runner {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
         String input = s.nextLine();
-        while (!input.equals("exit"))
-        {
+        while (!input.equals("exit")) {
             input = input.substring(5);
             int index = input.indexOf(" ");
             String command = input.substring(0, index);
@@ -16,65 +15,49 @@ public class Runner {
             ArrayList<PhysicalVolume> pvSet = new ArrayList<PhysicalVolume>();
             ArrayList<VolumeGroup> vgList = new ArrayList<VolumeGroup>();
 
-            if (command.equals("install-drive"))
-            {
+            if (command.equals("install-drive")) {
                 input = input.substring(index + 1);
                 index = input.indexOf(" ");
                 String name = input.substring(0, index);
                 String size = input.substring(index + 1);
-                if (size.indexOf("G") != -1)
-                {
+                if (size.indexOf("G") != -1) {
                     int tempIn = size.indexOf("G");
                     size = input.substring(index + 1, tempIn);
                 }
                 int pDSize = Integer.parseInt(size);
-                PhysicalDrive PD = new PhysicalDrive (name, pDSize);
+                PhysicalDrive PD = new PhysicalDrive(name, pDSize);
                 pDList.add(PD);
                 System.out.println("Drive " + name + "installed");
             }
-            if (command.equals("list-drives"))
-            {
-                for (PhysicalDrive physDrive : pDList)
-                {
+            if (command.equals("list-drives")) {
+                for (PhysicalDrive physDrive : pDList) {
                     System.out.println(physDrive.getName() + " [" + physDrive.getSize() + "G]");
                 }
             }
-            if (command.equals("pvcreate"))
-            {
+            if (command.equals("pvcreate")) {
                 input = input.substring(index + 1);
                 index = input.indexOf(" ");
                 String name = input.substring(0, index);
                 String driveName = input.substring(index + 1);
                 boolean canCreate = true;
-                for (int i = 0; i < pDList.size(); i++)
-                {
-                    if (pDList.get(i).getName() == driveName)
-                    {
-                        for (int k = 0; k < pDSet.size(); k++)
-                        {
-                            if (pDSet.get(k).getName() == driveName)
-                            {
+                for (int i = 0; i < pDList.size(); i++) {
+                    if (pDList.get(i).getName() == driveName) {
+                        for (int k = 0; k < pDSet.size(); k++) {
+                            if (pDSet.get(k).getName() == driveName) {
                                 System.out.println("Drive is already associated with a created PV.");
                                 canCreate = false;
                             }
                         }
-                    }
-                    else
-                    {
+                    } else {
                         canCreate = false;
                     }
                 }
-                if (canCreate == false)
-                {
+                if (canCreate == false) {
                     System.out.println("Drive does not exist.");
-                }
-                else
-                {
+                } else {
                     PhysicalVolume pv = new PhysicalVolume(name);
-                    for (int i = 0; i < pDList.size(); i++)
-                    {
-                        if (pDList.get(i).getName() == driveName)
-                        {
+                    for (int i = 0; i < pDList.size(); i++) {
+                        if (pDList.get(i).getName() == driveName) {
                             pv.setPd(pDList.get(i));
                             pDSet.add(pDList.get(i));
                         }
