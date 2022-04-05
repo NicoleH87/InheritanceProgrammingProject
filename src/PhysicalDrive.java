@@ -5,7 +5,8 @@ public class PhysicalDrive extends Info {
     //Variables
     private String name;
     private int size;
-    private static ArrayList<String> pD;
+    public static ArrayList<String> pD;
+    private PhysicalVolume pvAssigned;
 
     //Constructor
     public PhysicalDrive (String name, int size)

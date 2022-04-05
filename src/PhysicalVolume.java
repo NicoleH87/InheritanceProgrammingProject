@@ -12,6 +12,16 @@ public class PhysicalVolume extends Info {
         }
     }
 
+    public void setPd(PhysicalDrive pd)
+    {
+        this.pd = pd;
+    }
+
+    public PhysicalDrive getPd()
+    {
+        return pd;
+    }
+
     public void createPD()
     {
         System.out.println("Enter the name of your physical drive: ");

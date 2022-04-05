@@ -9,10 +9,13 @@ public class VolumeGroup extends Info {
     private ArrayList<LogicalVolume> lvList;
 
     //Constructors
-    public VolumeGroup (String name, ArrayList<PhysicalVolume> pv, ArrayList<LogicalVolume> lv) {
+    public VolumeGroup (String name, PhysicalVolume pv) {
         super(name);
-        pvList = pv;
-        lvList = lv;
+        pvList.add(pv);
+    }
+
+    public void addPV (PhysicalVolume pv) {
+        pvList.add(pv);
     }
 
     public void createLV(String name, int size)
