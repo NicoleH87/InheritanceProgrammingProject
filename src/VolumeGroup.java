@@ -3,10 +3,8 @@ import java.util.Scanner;
 
 public class VolumeGroup extends Info {
     //Variables
-    private String name;
-    private String UUIDk;
-    private ArrayList<PhysicalVolume> pvList;
-    private ArrayList<LogicalVolume> lvList;
+    private ArrayList<PhysicalVolume> pvList = new ArrayList<PhysicalVolume>();
+    private ArrayList<LogicalVolume> lvList = new ArrayList<LogicalVolume>();
 
     //Constructors
     public VolumeGroup (String name, PhysicalVolume pv) {
@@ -18,13 +16,9 @@ public class VolumeGroup extends Info {
         pvList.add(pv);
     }
 
-    public void createLV(String name, int size)
+    public void addLV(LogicalVolume lv)
     {
-        if (canCreateLV(size))
-        {
-            LogicalVolume logicVol = new LogicalVolume(size, name);
-            lvList.add(logicVol);
-        }
+        lvList.add(lv);
     }
 
     public boolean canCreateLV(int newSize)
@@ -37,24 +31,27 @@ public class VolumeGroup extends Info {
         return false;
     }
 
-    public void createPV(String name)
+    public ArrayList<PhysicalVolume> getPVList()
     {
-        PhysicalVolume physVol = new PhysicalVolume (name);
-        pvList.add(physVol);
+        return pvList;
     }
 
     public int getVGSize()
     {
         int totalSize = 0;
-        for (LogicalVolume logicVol : lvList)
+        for (PhysicalVolume physVol : pvList)
         {
-            totalSize += logicVol.getSize();
+            totalSize += physVol.getPD().getSize();
         }
         return totalSize;
     }
 
     public int freeSpace()
     {
-        return this.getSize() - getVGSize();
+        int lvSize = 0;
+        for (LogicalVolume logVol: lvList) {
+            lvSize += logVol.getSize();
+        }
+        return getVGSize() - lvSize;
     }
 }

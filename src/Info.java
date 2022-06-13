@@ -19,8 +19,8 @@ public class Info {
         this.name = name;
         java.util.UUID u = java.util.UUID.randomUUID();
         UUIDd = u.toString();
+        size = 0;
     }
-
 
     public String getName() {
         return name;

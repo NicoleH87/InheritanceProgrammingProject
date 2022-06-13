@@ -2,24 +2,40 @@ import java.util.Scanner;
 
 public class PhysicalVolume extends Info {
     private PhysicalDrive pd;
+    private VolumeGroup vg;
+    String vgName;
 
-    public PhysicalVolume (String name)
+    public PhysicalVolume (String name, PhysicalDrive pd)
     {
         super(name);
-        if (pd == null)
-        {
-            createPD();
+        this.pd = pd;
+    }
+
+    public PhysicalDrive getPD()
+    {
+        return pd;
+    }
+
+    public VolumeGroup getVG() {
+        return vg;
+    }
+
+    public String getVGName() {
+        if (vg == null) {
+            return "";
+        }
+        else {
+            return vg.getName();
         }
     }
 
-    public void setPd(PhysicalDrive pd)
+    public void setPD(PhysicalDrive pd)
     {
         this.pd = pd;
     }
 
-    public PhysicalDrive getPd()
-    {
-        return pd;
+    public void setVG(VolumeGroup vg) {
+        this.vg = vg;
     }
 
     public void createPD()

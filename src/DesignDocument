@@ -17,7 +17,6 @@ public String getUUIDd() //returns the UUID of the object
 public int getSize() //returns the size of the object
 
 
-
 PhysicalDrive.java //This class will extend from Info.java class
 //Variables
 private String name;

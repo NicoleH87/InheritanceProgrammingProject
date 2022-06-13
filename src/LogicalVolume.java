@@ -1,9 +1,14 @@
 public class LogicalVolume extends Info {
-    private String name;
+    private VolumeGroup vg;
 
-    public LogicalVolume (int size, String name)
+    public LogicalVolume (String name, int size, VolumeGroup vg)
     {
         super(name, size);
+        this.vg = vg;
+    }
+
+    public VolumeGroup getVG() {
+        return vg;
     }
 
 }
