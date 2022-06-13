@@ -9,7 +9,7 @@ public Info (String name, int size){}
 //The constructor will accept the name and size of the object. It will generate it's unique UUID upon creating a new object.
 
 public Info (String name){}
-//The constructor will accept the name of the object. It will generate it's unique UUID upon creating a new object.
+//The constructor will accept the name of the object. When not provided with a size, the program will automate itself to a size of 0.It will generate it's unique UUID upon creating a new object.
 
 //Methods
 public String getName() //returns the name of the object
@@ -19,62 +19,106 @@ public int getSize() //returns the size of the object
 
 PhysicalDrive.java //This class will extend from Info.java class
 //Variables
-private String name;
-private int size;
-private static ArrayList<String> pD;
+private String name; - name of the physical drive
+private int size; - size of physical drive
+private PhysicalVolume pvAssigned; - physical volume object assigned to the physical drive
 
 //Constructors
 public PhysicalDrive (String name, int size)
 //The input name and size will be referenced to the superclass that is responsible for storing this data.
 
 //Methods
-public void checkPhysicalDrive() {}
-//This method will check if there is already a variable created with the same name. If not, a new physical drive will be created.
+public void setPhysicalVolume(PhysicalVolume physicalVolume) {}
+//This method will set pvAssigned, the physical volume object assigned to the physical drive, by the given PhysicalVolume object.
+public PhysicalVolume getPhysicalVolume() {}
+//This method returns the physicalVolume object that is assigned to the physical drive when method is called.
 
 
 PhysicalVolume.java //This class will extend from Info.java class
 //Variables
-private PhysicalDrive pd;
+private PhysicalDrive pd; - physical drive object assigned to physical volume
+private VolumeGroup vg; - volume group that the physical volume is located under
+String vgName; - name of the volume group for better accessibility (especially if vg is a null object)
 
 //Constructors
-public PhysicalVolume (String name)
+public PhysicalVolume (String name, PhysicalDrive pd)
+//The constructor will set the name of the object to its variable in the parent class and creates a info object for the physical volume object. pd is set to its assigned physical drive.
 
 //Methods
-public void createPD()
+public PhysicalDrive getPD(){}
+//returns physical drive assigned to physical volume
+
+public VolumeGroup getVG() {}
+//returns volume group assigned to physical volume
+
+public String getVGName() {}
+//returns string variable of the volume group name. If the volume group object in the physical volume class is null, the method would return an empty string, if not, the program will access the name of the volume group from the parent class.
+
+public void setPD(PhysicalDrive pd) {}
+//set physical drive assigned to the physical volume with newly provided physical drive
+
+public void setVG(VolumeGroup vg) {}
+//sets/assigns the input vg (VolumeGroup object) to the VolumeGroup variable in the PhysicalVolume class.
+
+public void createPD(){}
 //Ask for info that will create physical volume by asking and setting the name and size.
 
 
 LogicalVolume.java //This class will extend from Info.java class
 //Variables
-private String name;
+private VolumeGroup vg;
 
 //Constructors
 public LogicalVolume (int size, String name)
+//initiates the name and size of the object and assigns data to the superclass
+//sets volume group assigned to the logical volume to the given VolumeGroup object
+
+//Methods
+public VolumeGroup getVG() {}
+//returns the volume group object assigned to logical volume
 
 
 VolumeGroup.java //This class will extend from Info.java class
 //Variables
-private String name;
-private String UUIDk;
-private ArrayList<PhysicalVolume> pvList;
-private ArrayList<LogicalVolume> lvList;
+private ArrayList<PhysicalVolume> pvList; list of physical volume objects under volume group
+private ArrayList<LogicalVolume> lvList; list of logical volume objects under volume group
 
 //Constructors
-public VolumeGroup (String name, ArrayList<PhysicalVolume> pv, ArrayList<LogicalVolume> lv){}
-//The string name will be referenced to the superclass, where the information is stored.
+public VolumeGroup (String name, PhysicalVolume pv){}
+//The string name will be referenced to the superclass, where the information is stored. Physical Volume object is added to pvList.
 
 //Methods
-public void createLV(String name, int size)
-//Create logical volume object and add to lvList.
+public void addPV(PhysicalVolume pv) {}
+//Adds physical volume object to the physical volume list assigned to th under volume group object.
+
+public void addLV(LogicalVolume lv) {}
+//Add logical volume object to lvList.
 
 public boolean canCreateLV(int newSize)
 //Check if a logical volume object can be created.
 
-public void createPV(String name)
-//Create a physicalVolume object and add to pvList
+public ArrayList<PhysicalVolume> getPVList()
+//Returns pvList - list of PhysicalVolume objects
 
 public int getVGSize()
-//Return the size of VG or the total sizes that lvList takes up.
+//Return the size of VG or the total sizes that pvList takes up.
 
 public int freeSpace()
 //Returns the number of free space in volume group.
+
+
+Runner.java //main runner class that manages all the inputs, outputs, and data in the program
+1. Create ArrayList for PhysicalDrive objects, PhysicalVolume objects, VolumeGroup objects, LogicalVolume Objects
+2. Welcome user to program and have user enter program command
+3. Check that command is valid, otherwise, return comment stating otherwise.
+4. For each command, if user enters "install-drive", "pvcreate", "vgcreate", "lvcreate" commands:
+    a. Check to make sure program format is accurate, all necessary information is stated
+    b. use substring method to isolate necessary information given the index of each space separating info
+    c. check that objects entered exists or if creating new object, have yet to exist
+    d. check all conditions given for each command
+    e. create new object and add the corresponding object to the arraylist created earlier in the program
+    f. assign/update any necessary objects in which the object is set to
+5. For commands that requires listing objects:
+    a. Follow given instructions on how to structure the list
+    b. Use a series of print statements and accessing the method objects
+6. If request exit, end program.

@@ -103,17 +103,6 @@ public class Runner {
             else if (command.equals("pvlist")) {
                 ArrayList<PhysicalVolume> currPVList = pvList;
                 for (int i = 0; i < currPVList.size(); i++) {
-                    String tempVG = currPVList.get(i).getVGName();
-                    int time = 0;
-                    for (int k = i + 1; k < currPVList.size(); k++) {
-                        if (currPVList.get(k).getVGName().equals(tempVG)) {
-                                currPVList.add(i + 1 + time, currPVList.remove(k));
-                                time++;
-                        }
-                    }
-                    i = i + time - 1;
-                }
-                for (int i = 0; i < currPVList.size(); i++) {
                     System.out.print(currPVList.get(i).getName() + ":[" + currPVList.get(i).getPD().getSize() + "G] [");
                     if (currPVList.get(i).getVG() != null) {
                         System.out.print(currPVList.get(i).getVG().getName() + "] [");
@@ -237,10 +226,7 @@ public class Runner {
                     index = input.indexOf(" ");
                     if (index != -1) {
                         String lvSize = input.substring(0, index);
-                        if (lvSize.indexOf("G") != -1) {
-                            lvSize = lvSize.substring(0, lvSize.length());
-                        }
-                        int size = Integer.parseInt(lvSize);
+                        int size = Integer.parseInt(lvSize.substring(0, lvSize.length() - 1));
                         String lvVGName = input.substring(index + 1);
                         PhysicalVolume volume = new PhysicalVolume(" ", new PhysicalDrive(" ", 0));
                         VolumeGroup group = new VolumeGroup(" ", volume);
@@ -302,5 +288,6 @@ public class Runner {
             System.out.print("cmd# ");
             input = s.nextLine();
         }
+        System.out.println("Saving data. Goodbye!");
     }
 }
