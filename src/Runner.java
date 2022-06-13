@@ -1,5 +1,9 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Runner {
     public static void main(String[] args) {
@@ -288,6 +292,7 @@ public class Runner {
             System.out.print("cmd# ");
             input = s.nextLine();
         }
-        System.out.println("Saving data. Goodbye!");
+        System.out.println("Program Terminated.");
     }
+
 }
